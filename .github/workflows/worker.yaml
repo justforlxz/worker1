@@ -1,0 +1,29 @@
+name: k8s
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+   # - uses: actions/checkout@v1
+   # - name: Set up WireGuard
+   #   uses: egor-tensin/setup-wireguard@v1
+   #   with:
+   #     endpoint: '${{ secrets.ENDPOINT }}'
+   #     endpoint_public_key: '${{ secrets.ENDPOINT_PUBLIC }}'
+   #     ips: '${{ secrets.IPS }}'
+   #     allowed_ips: '${{ secrets.ALLOWED_IPS }}'
+   #     private_key: '${{ secrets.PRIVATE }}'
+   #     preshared_key: '${{ secrets.PRESHARED }}'
+   # - name: Check
+   #   run: |
+   #     sudo wg show
+   #     ping 192.168.3.1 -c 5
+    - name: Install k3d
+      run: |
+        curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_EXEC="--node-external-ip 216.127.164.165" K3S_URL=https://216.127.164.165:6443 K3S_TOKEN=K1086aafc33d66f8139edf2c76a889422327b4c161d426bc1cefea9f6b2cbe4cfc8::server:98d30769edf25849036006c443f1879e sh -
+    - name: Sleep
+      run: |
+        sleep 21600
